@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClipByNaim - Stream Player + Recorder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>ClipByNaim</h1>
+<h3>Stream Player + Recorder</h3>
+
+<input type="text" id="url" placeholder="Paste m3u8 link">
+<button onclick="play()">▶ PLAY STREAM</button>
+<button id="recBtn" onclick="toggleRecord()">⏺ RECORD</button>
+
+<video id="video" controls></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
