@@ -1,0 +1,43 @@
+let recorder, chunks = [];
+let isRecording = false;
+
+function play() {
+    const video = document.getElementById('video');
+    const url = document.getElementById('url').value;
+
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+    } else {
+        video.src = url;
+    }
+}
+
+function toggleRecord() {
+    const video = document.getElementById('video');
+    const btn = document.getElementById('recBtn');
+
+    if (!isRecording) {
+        recorder = new MediaRecorder(video.captureStream());
+        chunks = [];
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = e => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ClipByNaim_recorded.webm';
+            a.click();
+        };
+        recorder.start();
+        btn.textContent = "⏹ STOP";
+        isRecording = true;
+        alert("Recording started!");
+    } else {
+        recorder.stop();
+        btn.textContent = "⏺ RECORD";
+        isRecording = false;
+        alert("Recording stopped!");
+    }
+}
